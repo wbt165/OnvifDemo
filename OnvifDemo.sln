@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OnvifDemo", "OnvifDemo.vcproj", "{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OnvifDemo", "4-MobileCode\OnvifDemo.vcproj", "{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
