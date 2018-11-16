@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>OnvifDetectDeviceClass</class>
+ <widget class="QWidget" name="OnvifDetectDeviceClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OnvifDetectDevice</string>
+  </property>
+  <widget class="QPushButton" name="pushButtonSearch">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>30</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>搜索设备</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="textBrowserResult">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>90</y>
+     <width>511</width>
+     <height>271</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="onvifdetectdevice.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pushButtonSearch</sender>
+   <signal>clicked()</signal>
+   <receiver>OnvifDetectDeviceClass</receiver>
+   <slot>pushButtonSearchSlotClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>99</x>
+     <y>42</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>194</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>pushButtonSearchSlotClicked()</slot>
+ </slots>
+</ui>

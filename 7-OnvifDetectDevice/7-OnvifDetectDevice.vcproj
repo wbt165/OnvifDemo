@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="4-MobileCode"
-	ProjectGUID="{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}"
+	Name="7-OnvifDetectDevice"
+	ProjectGUID="{1A66893B-5434-461F-BA43-D28E26B756FD}"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -166,19 +166,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\onvifdemo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\soapC.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\soapClient.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\stdsoap2.cpp"
+				RelativePath=".\onvifdetectdevice.cpp"
 				>
 			</File>
 		</Filter>
@@ -188,18 +176,18 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\MobileCodeWSSoap.nsmap"
+				RelativePath="..\6-OnvifDemo\duration.h"
 				>
 			</File>
 			<File
-				RelativePath=".\onvifdemo.h"
+				RelativePath=".\onvifdetectdevice.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing onvifdemo.h..."
+						Description="Moc&apos;ing onvifdetectdevice.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
@@ -210,24 +198,12 @@
 					>
 					<Tool
 						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing onvifdemo.h..."
+						Description="Moc&apos;ing onvifdetectdevice.h..."
 						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\soapH.h"
-				>
-			</File>
-			<File
-				RelativePath=".\soapStub.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stdsoap2.h"
-				>
 			</File>
 		</Filter>
 		<Filter
@@ -236,7 +212,7 @@
 			UniqueIdentifier="{99349809-55BA-4b9d-BF79-8FDBB0286EB3}"
 			>
 			<File
-				RelativePath=".\onvifdemo.ui"
+				RelativePath=".\onvifdetectdevice.ui"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -269,7 +245,7 @@
 			ParseFiles="false"
 			>
 			<File
-				RelativePath=".\onvifdemo.qrc"
+				RelativePath=".\onvifdetectdevice.qrc"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -302,7 +278,7 @@
 			SourceControlFiles="false"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\qrc_onvifdemo.cpp"
+				RelativePath=".\GeneratedFiles\qrc_onvifdetectdevice.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -322,7 +298,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\ui_onvifdemo.h"
+				RelativePath=".\GeneratedFiles\ui_onvifdetectdevice.h"
 				>
 			</File>
 			<Filter
@@ -331,7 +307,7 @@
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_onvifdemo.cpp"
+					RelativePath=".\GeneratedFiles\Release\moc_onvifdetectdevice.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -349,7 +325,7 @@
 				SourceControlFiles="false"
 				>
 				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_onvifdemo.cpp"
+					RelativePath=".\GeneratedFiles\Debug\moc_onvifdetectdevice.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
