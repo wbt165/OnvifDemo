@@ -26,13 +26,13 @@
     <string>搜索设备</string>
    </property>
   </widget>
-  <widget class="QTextBrowser" name="textBrowserResult">
+  <widget class="QTextEdit" name="textEditResult">
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>90</y>
-     <width>511</width>
-     <height>271</height>
+     <y>80</y>
+     <width>521</width>
+     <height>291</height>
     </rect>
    </property>
   </widget>

@@ -13,7 +13,7 @@ public:
 	~OnvifDemo();
 
 private slots:
-		void lineEditSlotTextChanged(QString qsText);
+	void lineEditSlotTextChanged(QString qsText);
 
 private:
 	Ui::OnvifDemoClass ui;
