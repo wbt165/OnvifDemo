@@ -32,7 +32,7 @@ private slots:
 	void pushButtonSearchSlotClicked();
 
 private:
-	void detectDevice(void (*cb)(char *DeviceXAddr));
+	void detectDevice();
 	soap* initOnvifSoap(int timeout);
 
 /************************************************************************
@@ -64,6 +64,32 @@ private:
 	void deleteOnvifSoap(soap* pSoap);
 	void* mallocOnvifSoap(soap* pSoap, int nLen);
 	const char* soap_wsa_rand_uuid(soap* pSoap);
+
+/************************************************************************
+**函数：getOnvifDeviceInformation
+**功能：获取设备基本信息
+**参数：
+        [in] szAddrs - 设备服务地址
+**返回：
+        0表明成功，非0表明失败
+**备注：
+************************************************************************/
+	int getOnvifDeviceInformation(const char* szAddrs);
+
+
+/************************************************************************
+**函数：setOnvifAuthInfo
+**功能：设置认证信息
+**参数：
+        [in] soap     - soap环境变量
+        [in] username - 用户名
+        [in] password - 密码
+**返回：
+        0表明成功，非0表明失败
+**备注：
+************************************************************************/
+	int setOnvifAuthInfo(soap* pSoap, const char* szUsername, const char* szPassword);
+
 private:
 	Ui::OnvifDetectDeviceClass ui;
 };

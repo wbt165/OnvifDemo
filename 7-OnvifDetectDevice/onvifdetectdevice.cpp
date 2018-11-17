@@ -19,10 +19,10 @@ OnvifDetectDevice::~OnvifDetectDevice()
 
 void OnvifDetectDevice::pushButtonSearchSlotClicked()
 {
-	detectDevice(NULL);
+	detectDevice();
 }
 
-void OnvifDetectDevice::detectDevice(void (*cb)(char *DeviceXAddr))
+void OnvifDetectDevice::detectDevice()
 {
 	int result = 0;
 	unsigned int count = 0;                                                     // 搜索到的设备个数
@@ -55,10 +55,7 @@ void OnvifDetectDevice::detectDevice(void (*cb)(char *DeviceXAddr))
 					for(int i = 0; i < stuRep.wsdd__ProbeMatches->__sizeProbeMatch; i++)
 					{
 						probeMatch = stuRep.wsdd__ProbeMatches->ProbeMatch + i;
-						if (NULL != cb)
-						{
-							cb(probeMatch->XAddrs);                             // 使用设备服务地址执行函数回调
-						}
+						getOnvifDeviceInformation(probeMatch->XAddrs);
 					}
 				}
 			}
@@ -181,4 +178,73 @@ void* OnvifDetectDevice::mallocOnvifSoap(soap* pSoap, int nLen)
 const char* OnvifDetectDevice::soap_wsa_rand_uuid(soap* pSoap)
 {
 	return soap_strdup(pSoap, soap_rand_uuid(pSoap, "urn:uuid:"));
+}
+
+int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
+{
+	int result = 0;
+	soap* pSoap = NULL;
+	_tds__GetDeviceInformation           objDevinfoReq;
+	_tds__GetDeviceInformationResponse   objDevinfoResp;
+
+	SOAP_ASSERT(NULL != szAddrs);
+	SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
+
+	QString qsAddrs = QString::fromUtf8(szAddrs);
+	QStringList qslAddrs = qsAddrs.split(" ");
+
+//	memset(&devinfo_req, 0x00, sizeof(devinfo_req));
+//	memset(&devinfo_resp, 0x00, sizeof(devinfo_resp));
+	result = soap_call___tds__GetDeviceInformation(pSoap, qslAddrs[0].toUtf8().data(), NULL, &objDevinfoReq, objDevinfoResp);
+
+	if (SOAP_OK == result)
+	{
+		if (SOAP_OK == pSoap->error)
+		{
+			printSoapError(pSoap, "GetDeviceInformation");
+		}
+		else
+		{
+			objDevinfoResp;
+//			dump_tds__GetDeviceInformationResponse(&devinfo_resp);
+		}
+	}
+	else
+	{
+		printSoapError(pSoap, "GetDeviceInformation");
+	}
+	return result;
+}
+
+int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, const char* szPassword)
+{
+
+	int result = 0;
+
+// 	SOAP_ASSERT(NULL != username);
+// 	SOAP_ASSERT(NULL != password);
+// 
+// 	result = soap_wsse_add_UsernameTokenDigest(soap, NULL, username, password);
+// 
+// 	if (SOAP_OK == result)
+// 	{
+// 		if (SOAP_OK == pSoap->error)
+// 		{
+// 			printSoapError(pSoap, "UsernameTokenDigest");
+// 		}
+// 		else
+// 		{
+// 			objDevinfoResp;
+// 			//			dump_tds__GetDeviceInformationResponse(&devinfo_resp);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		printSoapError(pSoap, "GetDeviceInformation");
+// 	}
+// 
+// EXIT:
+
+	return result;
+
 }
