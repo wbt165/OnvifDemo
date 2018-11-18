@@ -107,8 +107,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;..\6-OnvifDemo&quot;"
-				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB"
+				AdditionalIncludeDirectories=".\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;..\6-OnvifDemo&quot;;&quot;..\OpenSSL-Win32\include&quot;"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;WITH_OPENSSL"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
@@ -124,9 +124,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib libssl32MDd.lib libcrypto32MDd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="$(QTDIR)\lib"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\OpenSSL-Win32\lib\VC&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>
@@ -199,7 +199,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing onvifdetectdevice.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\6-OnvifDemo&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DWITH_OPENSSL  &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL-Win32\include&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -342,6 +342,30 @@
 			Name="Onvif"
 			>
 			<File
+				RelativePath="..\6-OnvifDemo\dom.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\dom.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\mecevp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\mecevp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\smdevp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\smdevp.h"
+				>
+			</File>
+			<File
 				RelativePath="..\6-OnvifDemo\soapC.cpp"
 				>
 			</File>
@@ -366,7 +390,31 @@
 				>
 			</File>
 			<File
+				RelativePath="..\6-OnvifDemo\threads.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\threads.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsaapi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsaapi.h"
+				>
+			</File>
+			<File
 				RelativePath="..\6-OnvifDemo\wsdd.nsmap"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsseapi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsseapi.h"
 				>
 			</File>
 		</Filter>

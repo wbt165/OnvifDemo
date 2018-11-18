@@ -5,6 +5,8 @@
 #include <assert.h>
 #include "soapH.h"
 #include "QTextEdit"
+#include "wsseapi.h"
+#include "wsaapi.h"
 
 OnvifDetectDevice::OnvifDetectDevice(QWidget *parent, Qt::WFlags flags)
 	: QWidget(parent, flags)
@@ -175,11 +177,6 @@ void* OnvifDetectDevice::mallocOnvifSoap(soap* pSoap, int nLen)
 	return p;
 }
 
-const char* OnvifDetectDevice::soap_wsa_rand_uuid(soap* pSoap)
-{
-	return soap_strdup(pSoap, soap_rand_uuid(pSoap, "urn:uuid:"));
-}
-
 int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 {
 	int result = 0;
@@ -195,6 +192,7 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 
 //	memset(&devinfo_req, 0x00, sizeof(devinfo_req));
 //	memset(&devinfo_resp, 0x00, sizeof(devinfo_resp));
+	setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
 	result = soap_call___tds__GetDeviceInformation(pSoap, qslAddrs[0].toUtf8().data(), NULL, &objDevinfoReq, objDevinfoResp);
 
 	if (SOAP_OK == result)
@@ -218,33 +216,24 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 
 int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, const char* szPassword)
 {
-
 	int result = 0;
 
-// 	SOAP_ASSERT(NULL != username);
-// 	SOAP_ASSERT(NULL != password);
-// 
-// 	result = soap_wsse_add_UsernameTokenDigest(soap, NULL, username, password);
-// 
-// 	if (SOAP_OK == result)
-// 	{
-// 		if (SOAP_OK == pSoap->error)
-// 		{
-// 			printSoapError(pSoap, "UsernameTokenDigest");
-// 		}
-// 		else
-// 		{
-// 			objDevinfoResp;
-// 			//			dump_tds__GetDeviceInformationResponse(&devinfo_resp);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		printSoapError(pSoap, "GetDeviceInformation");
-// 	}
-// 
-// EXIT:
+	SOAP_ASSERT(NULL != szUsername);
+	SOAP_ASSERT(NULL != szPassword);
+
+ 	result = soap_wsse_add_UsernameTokenDigest(pSoap, NULL, szUsername, szPassword);
+
+	if (SOAP_OK == result)
+	{
+		if (SOAP_OK == pSoap->error)
+		{
+			printSoapError(pSoap, "UsernameTokenDigest");
+		}
+	}
+	else
+	{
+		printSoapError(pSoap, "GetDeviceInformation");
+	}
 
 	return result;
-
 }

@@ -16,6 +16,9 @@
 
 #define SOAP_SOCK_TIMEOUT    (10)                                               // socket超时时间（单秒秒）
 
+#define USERNAME    "admin"
+#define PASSWORD    "98765432i"
+
 class soap;
 class wsdd__ProbeType;
 class __wsdd__ProbeMatches;
@@ -63,7 +66,6 @@ private:
 	void printMsg(QString qsText);
 	void deleteOnvifSoap(soap* pSoap);
 	void* mallocOnvifSoap(soap* pSoap, int nLen);
-	const char* soap_wsa_rand_uuid(soap* pSoap);
 
 /************************************************************************
 **函数：getOnvifDeviceInformation
