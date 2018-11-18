@@ -197,7 +197,7 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 
 	if (SOAP_OK == result)
 	{
-		if (SOAP_OK == pSoap->error)
+		if (SOAP_OK != pSoap->error)
 		{
 			printSoapError(pSoap, "GetDeviceInformation");
 		}
@@ -211,6 +211,12 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 	{
 		printSoapError(pSoap, "GetDeviceInformation");
 	}
+
+	if (NULL != pSoap)
+	{
+		deleteOnvifSoap(pSoap);
+	}
+
 	return result;
 }
 
@@ -223,7 +229,7 @@ int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, con
 
  	result = soap_wsse_add_UsernameTokenDigest(pSoap, NULL, szUsername, szPassword);
 
-	if (SOAP_OK == result)
+	if (SOAP_OK != result)
 	{
 		if (SOAP_OK == pSoap->error)
 		{
