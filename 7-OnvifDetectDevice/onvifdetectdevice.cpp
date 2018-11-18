@@ -238,7 +238,7 @@ int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, con
 	}
 	else
 	{
-		printSoapError(pSoap, "GetDeviceInformation");
+		printSoapError(pSoap, "UsernameTokenDigest");
 	}
 
 	return result;
