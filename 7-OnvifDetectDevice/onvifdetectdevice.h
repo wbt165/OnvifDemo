@@ -92,6 +92,32 @@ private:
 ************************************************************************/
 	int setOnvifAuthInfo(soap* pSoap, const char* szUsername, const char* szPassword);
 
+/************************************************************************
+**函数：getOnvifCapabilities
+**功能：获取设备能力信息
+**参数：
+        [in] szAddrs - 设备服务地址
+		[out] qsMediaXAddr - 设备媒体地址
+**返回：
+        0表明成功，非0表明失败
+**备注：
+    1). 其中最主要的参数之一是媒体服务地址
+************************************************************************/
+	int getOnvifCapabilities(const char* szAddrs, QString& qsMediaXAddr);
+
+/************************************************************************
+**函数：ONVIF_GetProfiles
+**功能：获取设备的音视频码流配置信息
+**参数：
+        [in] qsMediaXAddr - 媒体服务地址
+        [out] profiles  - 返回的设备音视频码流配置信息列表，调用者有责任使用free释放该缓存
+**返回：
+        返回设备可支持的码流数量（通常是主/辅码流），即使profiles列表个数
+**备注：
+        1). 注意：一个码流（如主码流）可以包含视频和音频数据，也可以仅仅包含视频数据。
+************************************************************************/
+	int getOnvifProfiles(QString qsMediaXAddr);
+
 private:
 	Ui::OnvifDetectDeviceClass ui;
 };

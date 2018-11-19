@@ -57,7 +57,15 @@ void OnvifDetectDevice::detectDevice()
 					for(int i = 0; i < stuRep.wsdd__ProbeMatches->__sizeProbeMatch; i++)
 					{
 						probeMatch = stuRep.wsdd__ProbeMatches->ProbeMatch + i;
-						getOnvifDeviceInformation(probeMatch->XAddrs);
+
+						QString qsAddrs = QString::fromUtf8(probeMatch->XAddrs);
+						QStringList qslAddrs = qsAddrs.split(" ");
+
+						getOnvifDeviceInformation(qslAddrs[0].toUtf8().data());
+						QString qsMediaXAddr;
+						getOnvifCapabilities(qslAddrs[0].toUtf8().data(), qsMediaXAddr);
+
+						int nProfileCount = getOnvifProfiles(qsMediaXAddr)
 					}
 				}
 			}
@@ -187,13 +195,10 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 	SOAP_ASSERT(NULL != szAddrs);
 	SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
 
-	QString qsAddrs = QString::fromUtf8(szAddrs);
-	QStringList qslAddrs = qsAddrs.split(" ");
-
 //	memset(&devinfo_req, 0x00, sizeof(devinfo_req));
 //	memset(&devinfo_resp, 0x00, sizeof(devinfo_resp));
 	setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
-	result = soap_call___tds__GetDeviceInformation(pSoap, qslAddrs[0].toUtf8().data(), NULL, &objDevinfoReq, objDevinfoResp);
+	result = soap_call___tds__GetDeviceInformation(pSoap, szAddrs, NULL, &objDevinfoReq, objDevinfoResp);
 
 	if (SOAP_OK == result)
 	{
@@ -203,8 +208,7 @@ int OnvifDetectDevice::getOnvifDeviceInformation(const char* szAddrs)
 		}
 		else
 		{
-			objDevinfoResp;
-//			dump_tds__GetDeviceInformationResponse(&devinfo_resp);
+			// 此处增加成功后处理
 		}
 	}
 	else
@@ -242,4 +246,93 @@ int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, con
 	}
 
 	return result;
+}
+
+int OnvifDetectDevice::getOnvifCapabilities(const char* szAddrs, QString& qsMediaXAddr)
+{
+	int result = 0;
+	soap* pSoap = NULL;
+	_tds__GetCapabilities           objCapabilitiesReq;
+	_tds__GetCapabilitiesResponse   objCapabilitiesResp;
+
+	SOAP_ASSERT(NULL != szAddrs);
+	SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
+
+	setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
+	result = soap_call___tds__GetCapabilities(pSoap, szAddrs, NULL, &objCapabilitiesReq, objCapabilitiesResp);
+
+	if (SOAP_OK == result)
+	{
+		if (SOAP_OK != pSoap->error)
+		{
+			printSoapError(pSoap, "GetCapabilities");
+		}
+		else
+		{
+			// 此处增加成功后处理
+			qsMediaXAddr = QString::fromUtf8(objCapabilitiesResp.Capabilities->Media->XAddr);
+		}
+	}
+	else
+	{
+		printSoapError(pSoap, "GetCapabilities");
+	}
+
+	if (NULL != pSoap)
+	{
+		deleteOnvifSoap(pSoap);
+	}
+
+	return result;
+}
+
+int OnvifDetectDevice::getOnvifProfiles(QString qsMediaXAddr)
+{
+	int i = 0;
+	int result = 0;
+	soap* pSoap = NULL;
+	_trt__GetProfiles            objProfiles;
+	_trt__GetProfilesResponse    objProfilesResponse;
+
+	SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
+
+	setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
+// 
+// 	memset(&req, 0x00, sizeof(req));
+// 	memset(&rep, 0x00, sizeof(rep));
+	result = soap_call___trt__GetProfiles(pSoap, qsMediaXAddr.toUtf8().data(), NULL, objProfiles, objProfilesResponse);
+
+
+	if (objProfilesResponse.__sizeProfiles > 0) {                                               // 分配缓存
+		(*profiles) = (struct tagProfile *)malloc(rep.__sizeProfiles * sizeof(struct tagProfile));
+		SOAP_ASSERT(NULL != (*profiles));
+		memset((*profiles), 0x00, rep.__sizeProfiles * sizeof(struct tagProfile));
+	}
+
+	for(i = 0; i < objProfilesResponse.__sizeProfiles; i++) {                                   // 提取所有配置文件信息（我们所关心的）
+		struct tt__Profile *ttProfile = &rep.Profiles[i];
+		struct tagProfile *plst = &(*profiles)[i];
+
+		if (NULL != ttProfile->token) {                                         // 配置文件Token
+			strncpy(plst->token, ttProfile->token, sizeof(plst->token) - 1);
+		}
+
+		if (NULL != ttProfile->VideoEncoderConfiguration) {                     // 视频编码器配置信息
+			if (NULL != ttProfile->VideoEncoderConfiguration->token) {          // 视频编码器Token
+				strncpy(plst->venc.token, ttProfile->VideoEncoderConfiguration->token, sizeof(plst->venc.token) - 1);
+			}
+			if (NULL != ttProfile->VideoEncoderConfiguration->Resolution) {     // 视频编码器分辨率
+				plst->venc.Width  = ttProfile->VideoEncoderConfiguration->Resolution->Width;
+				plst->venc.Height = ttProfile->VideoEncoderConfiguration->Resolution->Height;
+			}
+		}
+	}
+
+EXIT:
+
+	if (NULL != soap) {
+		ONVIF_soap_delete(soap);
+	}
+
+	return objProfilesResponse.__sizeProfiles;
 }
