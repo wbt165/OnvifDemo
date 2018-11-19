@@ -3090,7 +3090,7 @@ soap_wsse_verify_X509(struct soap *soap, X509 *cert)
     if (!data->store)
       return soap_wsse_receiver_fault(soap, "soap_wsse_verify_X509", "Could not create X509_STORE object");
     DBGLOG(TEST, SOAP_MESSAGE(fdebug, "Setting up a new X509 store\n"));
-    X509_STORE_set_verify_cb_func(data->store, (X509_STORE_CTX_verify_cb)soap->fsslverify);
+    X509_STORE_set_verify_cb_func(data->store, soap->fsslverify);
     if (soap->cafile || soap->capath)
     {
       if (X509_STORE_load_locations(data->store, soap->cafile, soap->capath) != 1)
