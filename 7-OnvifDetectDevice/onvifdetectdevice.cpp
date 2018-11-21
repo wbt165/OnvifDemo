@@ -65,7 +65,21 @@ void OnvifDetectDevice::detectDevice()
 						QString qsMediaXAddr;
 						getOnvifCapabilities(qslAddrs[0].toUtf8().data(), qsMediaXAddr);
 
-						int nProfileCount = getOnvifProfiles(qsMediaXAddr)
+						vector<CProfile> vecProfile;
+						int nProfileCount = getOnvifProfiles(qsMediaXAddr, vecProfile);
+
+						QString qsUri;			// 不带认证信息的URI地址
+						QString qsUriAuth;		// 带有认证信息的URI地址
+
+						if (nProfileCount > 0)
+						{
+							getOnvifStreamUri(qsMediaXAddr, vecProfile[0].m_qsToken, qsUri); // 获取RTSP地址
+
+ 							makeUriWithauth(qsUri, USERNAME, PASSWORD, qsUriAuth); // 生成带认证信息的URI（有的IPC要求认证）
+// 
+// 							open_rtsp(uri_auth);                                                    // 读取主码流的音视频数据
+						}
+
 					}
 				}
 			}
@@ -286,7 +300,7 @@ int OnvifDetectDevice::getOnvifCapabilities(const char* szAddrs, QString& qsMedi
 	return result;
 }
 
-int OnvifDetectDevice::getOnvifProfiles(QString qsMediaXAddr)
+int OnvifDetectDevice::getOnvifProfiles(const QString& qsMediaXAddr, vector<CProfile>& vecProfile)
 {
 	int i = 0;
 	int result = 0;
@@ -297,42 +311,148 @@ int OnvifDetectDevice::getOnvifProfiles(QString qsMediaXAddr)
 	SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
 
 	setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
-// 
-// 	memset(&req, 0x00, sizeof(req));
-// 	memset(&rep, 0x00, sizeof(rep));
-	result = soap_call___trt__GetProfiles(pSoap, qsMediaXAddr.toUtf8().data(), NULL, objProfiles, objProfilesResponse);
 
+	result = soap_call___trt__GetProfiles(pSoap, qsMediaXAddr.toUtf8().data(), NULL, &objProfiles, objProfilesResponse);
 
-	if (objProfilesResponse.__sizeProfiles > 0) {                                               // 分配缓存
-		(*profiles) = (struct tagProfile *)malloc(rep.__sizeProfiles * sizeof(struct tagProfile));
-		SOAP_ASSERT(NULL != (*profiles));
-		memset((*profiles), 0x00, rep.__sizeProfiles * sizeof(struct tagProfile));
+	// 分配缓存
+	if (objProfilesResponse.__sizeProfiles > 0)
+	{
+		vecProfile.resize(objProfilesResponse.__sizeProfiles);
 	}
 
-	for(i = 0; i < objProfilesResponse.__sizeProfiles; i++) {                                   // 提取所有配置文件信息（我们所关心的）
-		struct tt__Profile *ttProfile = &rep.Profiles[i];
-		struct tagProfile *plst = &(*profiles)[i];
+	// 提取所有配置文件信息（我们所关心的）
+	for(i = 0; i < objProfilesResponse.__sizeProfiles; i++)
+	{
+		tt__Profile* ttProfile = objProfilesResponse.Profiles[i];
+		vector<CProfile>::iterator it = vecProfile.begin() + i;
 
-		if (NULL != ttProfile->token) {                                         // 配置文件Token
-			strncpy(plst->token, ttProfile->token, sizeof(plst->token) - 1);
+		// 配置文件Token
+		if (NULL != ttProfile->token)
+		{
+			it->m_qsToken = QString::fromUtf8(ttProfile->token);
 		}
 
-		if (NULL != ttProfile->VideoEncoderConfiguration) {                     // 视频编码器配置信息
-			if (NULL != ttProfile->VideoEncoderConfiguration->token) {          // 视频编码器Token
-				strncpy(plst->venc.token, ttProfile->VideoEncoderConfiguration->token, sizeof(plst->venc.token) - 1);
+		// 视频编码器配置信息
+		if (NULL != ttProfile->VideoEncoderConfiguration)
+		{
+			// 视频编码器Token
+			if (NULL != ttProfile->VideoEncoderConfiguration->token)
+			{
+				it->m_objVideoEncoderConfiguration.m_qsToken = QString::fromUtf8(ttProfile->VideoEncoderConfiguration->token);
 			}
-			if (NULL != ttProfile->VideoEncoderConfiguration->Resolution) {     // 视频编码器分辨率
-				plst->venc.Width  = ttProfile->VideoEncoderConfiguration->Resolution->Width;
-				plst->venc.Height = ttProfile->VideoEncoderConfiguration->Resolution->Height;
+			// 视频编码器分辨率
+			if (NULL != ttProfile->VideoEncoderConfiguration->Resolution)
+			{
+				it->m_objVideoEncoderConfiguration.m_nWidth  = ttProfile->VideoEncoderConfiguration->Resolution->Width;
+				it->m_objVideoEncoderConfiguration.m_Height = ttProfile->VideoEncoderConfiguration->Resolution->Height;
 			}
 		}
 	}
 
-EXIT:
-
-	if (NULL != soap) {
-		ONVIF_soap_delete(soap);
+	if (NULL != pSoap)
+	{
+		deleteOnvifSoap(pSoap);
 	}
 
 	return objProfilesResponse.__sizeProfiles;
+}
+
+int OnvifDetectDevice::getOnvifStreamUri(const QString& qsMediaXAddr,const QString& qsToken, QString& qsUri)
+{
+	int result = 0;
+    soap* pSoap = NULL;
+    tt__StreamSetup              objStreamSetup;
+    tt__Transport                objTransport;
+    _trt__GetStreamUri           objGetStreamUri;
+    _trt__GetStreamUriResponse   objGetStreamUriResponse;
+
+	qsUri = "";
+ 
+    SOAP_ASSERT(NULL != (pSoap = initOnvifSoap(SOAP_SOCK_TIMEOUT)));
+ 
+    objStreamSetup.Stream                = tt__StreamType__RTP_Unicast;
+    objStreamSetup.Transport             = &objTransport;
+    objStreamSetup.Transport->Protocol   = tt__TransportProtocol__RTSP;
+    objStreamSetup.Transport->Tunnel     = NULL;
+    objGetStreamUri.StreamSetup                     = &objStreamSetup;
+    objGetStreamUri.ProfileToken                    = qsMediaXAddr.toUtf8().data();
+ 
+    setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
+    result = soap_call___trt__GetStreamUri(pSoap, qsMediaXAddr.toUtf8().data(), NULL, &objGetStreamUri, objGetStreamUriResponse);
+
+	if (SOAP_OK == result)
+	{
+		if (SOAP_OK != pSoap->error)
+		{
+			printSoapError(pSoap, "GetStreamUri");
+		}
+		else
+		{
+			// 此处增加成功后处理
+			result = -1;
+			if (NULL != objGetStreamUriResponse.MediaUri)
+			{
+				if (NULL != objGetStreamUriResponse.MediaUri->Uri)
+				{
+					qsUri = QString::fromUtf8(objGetStreamUriResponse.MediaUri->Uri);
+					result = SOAP_OK;
+				}
+			}
+		}
+	}
+	else
+	{
+		printSoapError(pSoap, "GetStreamUri");
+	}
+ 
+    if (NULL != pSoap)
+	{
+        deleteOnvifSoap(pSoap);
+    }
+ 
+    return result;
+}
+
+int OnvifDetectDevice::makeUriWithauth(const QString& qsUri, const char* szUsername, const char * szPassword, QString& qsUriAuth)
+{
+	// 生成新的uri地址
+	if (0 == strlen(szUsername) && 0 == strlen(szPassword))
+	{
+		qsUriAuth = qsUri;
+	}
+	else
+	{
+		int nIndex = qsUri.indexOf("//");
+		if (-1 == nIndex)
+		{
+			printMsg(QString("can't found '//', src uri is: " + qsUri));
+			return -1;
+		}
+		nIndex += 2;
+		qsUriAuth = qsUri.left(nIndex) + szUsername + ":" + szPassword + "@" + qsUri.right(qsUri.length() - nIndex);
+	}
+
+	return 0;
+}
+
+CProfile::CProfile()
+{
+	m_qsToken = "";
+}
+
+CProfile::~CProfile()
+{
+
+}
+
+CVideoEncoderConfiguration::CVideoEncoderConfiguration()
+{
+	m_qsToken = "";
+	m_nWidth = 0;
+	m_Height = 0;
+}
+
+CVideoEncoderConfiguration::~CVideoEncoderConfiguration()
+{
+
 }

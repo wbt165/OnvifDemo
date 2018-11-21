@@ -3,6 +3,8 @@
 
 #include <QtGui/QWidget>
 #include "ui_onvifdetectdevice.h"
+#include <vector>
+using namespace std;
 
 #define SOAP_ASSERT     assert
 
@@ -22,6 +24,31 @@
 class soap;
 class wsdd__ProbeType;
 class __wsdd__ProbeMatches;
+
+class CVideoEncoderConfiguration			// 视频编码器配置信息
+{
+public:
+	CVideoEncoderConfiguration();
+	~CVideoEncoderConfiguration();
+
+	QString m_qsToken;					// 唯一标识该视频编码器的令牌字符串
+	int m_nWidth;                       // 分辨率
+	int m_Height;
+};
+
+/* 设备配置信息 */
+class CProfile
+{
+public:
+	CProfile();
+	~CProfile();
+
+	QString m_qsToken;						// 唯一标识设备配置文件的令牌字符串
+	CVideoEncoderConfiguration m_objVideoEncoderConfiguration;
+protected:
+
+private:
+};
 
 class OnvifDetectDevice : public QWidget
 {
@@ -110,14 +137,43 @@ private:
 **功能：获取设备的音视频码流配置信息
 **参数：
         [in] qsMediaXAddr - 媒体服务地址
-        [out] profiles  - 返回的设备音视频码流配置信息列表，调用者有责任使用free释放该缓存
+        [out] vecProfile  - 返回的设备音视频码流配置信息列表
 **返回：
-        返回设备可支持的码流数量（通常是主/辅码流），即使profiles列表个数
+        返回设备可支持的码流数量（通常是主/辅码流），即是profiles列表个数
 **备注：
         1). 注意：一个码流（如主码流）可以包含视频和音频数据，也可以仅仅包含视频数据。
 ************************************************************************/
-	int getOnvifProfiles(QString qsMediaXAddr);
+	int getOnvifProfiles(const QString& qsMediaXAddr, vector<CProfile>& vecProfile);
 
+/************************************************************************
+**函数：getOnvifStreamUri
+**功能：获取设备码流地址(RTSP)
+**参数：
+        [in]  qsMediaXAddr    - 媒体服务地址
+        [in]  qsToken  - the media profile token
+        [out] uri           - 返回的地址
+**返回：
+        0表明成功，非0表明失败
+**备注：
+************************************************************************/
+	int getOnvifStreamUri(const QString& qsMediaXAddr,const QString& qsToken, QString& qsUri);
+
+/************************************************************************
+**函数：make_uri_withauth
+**功能：构造带有认证信息的URI地址
+**参数：
+        [in]  qsUri       - 未带认证信息的URI地址
+        [in]  username      - 用户名
+        [in]  password      - 密码
+        [out] qsUriAuth      - 返回的带认证信息的URI地址
+**返回：
+        0成功，非0失败
+**备注：
+    1). 例子：
+    无认证信息的uri：rtsp://100.100.100.140:554/av0_0
+    带认证信息的uri：rtsp://username:password@100.100.100.140:554/av0_0
+************************************************************************/
+	int makeUriWithauth(const QString& qsUri, const char* szUsername, const char * szPassword, QString& qsUriAuth);
 private:
 	Ui::OnvifDetectDeviceClass ui;
 };
