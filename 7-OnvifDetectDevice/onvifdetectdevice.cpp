@@ -8,6 +8,11 @@
 #include "wsseapi.h"
 #include "wsaapi.h"
 
+extern "C"
+{
+#include "libavformat/avformat.h"
+};
+
 OnvifDetectDevice::OnvifDetectDevice(QWidget *parent, Qt::WFlags flags)
 	: QWidget(parent, flags)
 {
@@ -76,8 +81,8 @@ void OnvifDetectDevice::detectDevice()
 							getOnvifStreamUri(qsMediaXAddr, vecProfile[0].m_qsToken, qsUri); // 获取RTSP地址
 
  							makeUriWithauth(qsUri, USERNAME, PASSWORD, qsUriAuth); // 生成带认证信息的URI（有的IPC要求认证）
-// 
-// 							open_rtsp(uri_auth);                                                    // 读取主码流的音视频数据
+
+							openRtsp(qsUriAuth);                                                    // 读取主码流的音视频数据
 						}
 
 					}
@@ -435,6 +440,121 @@ int OnvifDetectDevice::makeUriWithauth(const QString& qsUri, const char* szUsern
 	}
 
 	return 0;
+}
+
+void OnvifDetectDevice::openRtsp(const QString& qsUri)
+{
+	unsigned int    i;
+	int             ret;
+	int             video_st_index = -1;
+	int             audio_st_index = -1;
+	AVFormatContext *ifmt_ctx = NULL;
+	AVPacket        pkt;
+	AVStream        *st = NULL;
+	char            errbuf[64];
+	QString qsMsg;
+
+	av_register_all();                                                          // Register all codecs and formats so that they can be used.
+	avformat_network_init();                                                    // Initialization of network components
+
+	// Open the input file for reading.
+	if ((ret = avformat_open_input(&ifmt_ctx, qsUri.toUtf8().data(), 0, NULL)) < 0)
+	{
+		qsMsg.sprintf("Could not open input file '%s' (error '%s')", qsUri.toUtf8().data(), av_make_error_string(errbuf, sizeof(errbuf), ret));
+		printMsg(qsMsg);
+		if (NULL != ifmt_ctx)
+		{
+			avformat_close_input(&ifmt_ctx);
+			ifmt_ctx = NULL;
+		}
+		return;
+	}
+
+	// Get information on the input file (number of streams etc.).
+	if ((ret = avformat_find_stream_info(ifmt_ctx, NULL)) < 0)
+	{
+		qsMsg.sprintf("Could not open find stream info (error '%s')", av_make_error_string(errbuf, sizeof(errbuf), ret));
+		printMsg(qsMsg);
+		if (NULL != ifmt_ctx)
+		{
+			avformat_close_input(&ifmt_ctx);
+			ifmt_ctx = NULL;
+		}
+		return;
+	}
+
+	// dump information
+	for (i = 0; i < ifmt_ctx->nb_streams; i++)
+	{
+		av_dump_format(ifmt_ctx, i, qsUri.toUtf8().data(), 0);
+	}
+
+	// find video stream index
+	for (i = 0; i < ifmt_ctx->nb_streams; i++)
+	{
+		st = ifmt_ctx->streams[i];
+		switch(st->codec->codec_type)
+		{
+		case AVMEDIA_TYPE_AUDIO: audio_st_index = i; break;
+		case AVMEDIA_TYPE_VIDEO: video_st_index = i; break;
+		default: break;
+		}
+	}
+	if (-1 == video_st_index)
+	{
+		qsMsg.sprintf("No H.264 video stream in the input file");
+		printMsg(qsMsg);
+		if (NULL != ifmt_ctx)
+		{
+			avformat_close_input(&ifmt_ctx);
+			ifmt_ctx = NULL;
+		}
+		return;
+	}
+
+	av_init_packet(&pkt);                                                       // initialize packet.
+	pkt.data = NULL;
+	pkt.size = 0;
+
+	while (1)
+	{
+		do
+		{
+			ret = av_read_frame(ifmt_ctx, &pkt);                                // read frames
+		} while (ret == AVERROR(EAGAIN));
+
+		if (ret < 0)
+		{
+			qsMsg.sprintf("Could not read frame (error '%s')", av_make_error_string(errbuf, sizeof(errbuf), ret));
+			printMsg(qsMsg);
+			break;
+		}
+
+		if (pkt.stream_index == video_st_index)
+		{                               // video frame
+			qsMsg.sprintf("Video Packet size = %d", pkt.size);
+			printMsg(qsMsg);
+		}
+		else if(pkt.stream_index == audio_st_index)
+		{                         // audio frame
+			qsMsg.sprintf("Audio Packet size = %d", pkt.size);
+			printMsg(qsMsg);
+		}
+		else
+		{
+			qsMsg.sprintf("Unknow Packet size = %d", pkt.size);
+			printMsg(qsMsg);
+		}
+
+		av_packet_unref(&pkt);
+		Sleep(3000);
+	}
+
+	if (NULL != ifmt_ctx)
+	{
+		avformat_close_input(&ifmt_ctx);
+		ifmt_ctx = NULL;
+	}
 }
 
 CProfile::CProfile()

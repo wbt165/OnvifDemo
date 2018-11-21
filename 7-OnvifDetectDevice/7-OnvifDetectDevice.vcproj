@@ -124,7 +124,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib libssl32MDd.lib libcrypto32MDd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib libssl32MDd.lib libcrypto32MDd.lib avcodec.lib avformat.lib avutil.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;..\OpenSSL-Win32\lib\VC&quot;;&quot;..\ffmpeg-20181118-529debc-win32\lib&quot;"
 				GenerateDebugInformation="true"

@@ -175,6 +175,15 @@ private:
     带认证信息的uri：rtsp://username:password@100.100.100.140:554/av0_0
 ************************************************************************/
 	int makeUriWithauth(const QString& qsUri, const char* szUsername, const char * szPassword, QString& qsUriAuth);
+
+/************************************************************************
+**函数：openRtsp
+**功能：从RTSP获取音视频流数据
+**参数：
+        [in]  qsUri - RTSP地址
+**返回：无
+************************************************************************/
+	void openRtsp(const QString& qsUri);
 private:
 	Ui::OnvifDetectDeviceClass ui;
 };
