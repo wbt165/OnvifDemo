@@ -17,6 +17,7 @@ using namespace std;
 #define SOAP_TYPES      "dn:NetworkVideoTransmitter"                            // 寻找的设备类型
 
 #define SOAP_SOCK_TIMEOUT    (10)                                               // socket超时时间（单秒秒）
+#define ONVIF_ADDRESS_SIZE   (128)                                              // URI地址长度
 
 #define USERNAME    "admin"
 #define PASSWORD    "98765432i"

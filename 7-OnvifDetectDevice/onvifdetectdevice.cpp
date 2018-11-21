@@ -247,9 +247,9 @@ int OnvifDetectDevice::setOnvifAuthInfo(soap* pSoap, const char* szUsername, con
 
  	result = soap_wsse_add_UsernameTokenDigest(pSoap, NULL, szUsername, szPassword);
 
-	if (SOAP_OK != result)
+	if (SOAP_OK == result)
 	{
-		if (SOAP_OK == pSoap->error)
+		if (SOAP_OK != pSoap->error)
 		{
 			printSoapError(pSoap, "UsernameTokenDigest");
 		}
@@ -375,7 +375,9 @@ int OnvifDetectDevice::getOnvifStreamUri(const QString& qsMediaXAddr,const QStri
     objStreamSetup.Transport->Protocol   = tt__TransportProtocol__RTSP;
     objStreamSetup.Transport->Tunnel     = NULL;
     objGetStreamUri.StreamSetup                     = &objStreamSetup;
-    objGetStreamUri.ProfileToken                    = qsMediaXAddr.toUtf8().data();
+	char ProfileToken[ONVIF_ADDRESS_SIZE] = {0};
+	strncpy(ProfileToken, qsToken.toUtf8().data(), qsToken.toUtf8().size());
+    objGetStreamUri.ProfileToken                    = ProfileToken;
  
     setOnvifAuthInfo(pSoap, USERNAME, PASSWORD);
     result = soap_call___trt__GetStreamUri(pSoap, qsMediaXAddr.toUtf8().data(), NULL, &objGetStreamUri, objGetStreamUriResponse);
