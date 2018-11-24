@@ -9,7 +9,7 @@ extern "C"
 QVideoPlayerThread::QVideoPlayerThread(QObject *parent, const QString& qsUri)
 	: QThread(parent), m_qsUri(qsUri)
 {
-	m_bRunning = true;
+	m_bRunning = false;
 	m_pFormatCtx = NULL;
 	m_nVideoStream = -1;
 	m_pCodecCtx = NULL;
@@ -26,13 +26,30 @@ QVideoPlayerThread::QVideoPlayerThread(QObject *parent, const QString& qsUri)
 QVideoPlayerThread::~QVideoPlayerThread()
 {
 	m_bRunning = false;
+	wait();
+
+	av_free(m_pOutBuffer);
+	av_free(m_pFrameRGB);
+	avcodec_close(m_pCodecCtx);
+	avformat_close_input(&m_pFormatCtx);
+}
+
+void QVideoPlayerThread::startThread()
+{
+	m_bRunning = true;
+	start();
+}
+
+void QVideoPlayerThread::stopThread()
+{
+	m_bRunning = false;
 }
 
 void QVideoPlayerThread::run()
 {
 	while (m_bRunning)
 	{
-		while (av_read_frame(m_pFormatCtx, m_pPacket) >= 0)
+		if (av_read_frame(m_pFormatCtx, m_pPacket) >= 0)
 		{
 			if (m_pPacket->stream_index == m_nVideoStream) 
 			{
@@ -43,7 +60,7 @@ void QVideoPlayerThread::run()
 					return;
 				}
 
-				emit signalSendMsg(QString("Video Packet size = 1").arg(m_pPacket->size));
+				emit signalSendMsg(QString("Video Packet size = %1").arg(m_pPacket->size));
 
 				if (m_nGotPicture) 
 				{
@@ -55,13 +72,8 @@ void QVideoPlayerThread::run()
 			}
 
 			av_free_packet(m_pPacket); //释放资源,否则内存会一直上升
-			msleep(0.05); //停一停  不然放的太快了
 		}
-
-		av_free(m_pOutBuffer);
-		av_free(m_pFrameRGB);
-		avcodec_close(m_pCodecCtx);
-		avformat_close_input(&m_pFormatCtx);
+		msleep(0.05); //停一停  不然放的太快了
 	}
 }
 

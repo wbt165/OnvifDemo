@@ -25,6 +25,7 @@ using namespace std;
 class soap;
 class wsdd__ProbeType;
 class __wsdd__ProbeMatches;
+class QVideoPlayerThread;
 
 class CVideoEncoderConfiguration			//  ”∆µ±‡¬Î∆˜≈‰÷√–≈œ¢
 {
@@ -59,8 +60,14 @@ public:
 	OnvifDetectDevice(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~OnvifDetectDevice();
 
+protected:
+	virtual void paintEvent(QPaintEvent* pPaintEvent);
+
 private slots:
 	void pushButtonSearchSlotClicked();
+	void pushButtonStopSlotClicked();
+	void videoPlayerThreadSlotReceiveMsg(const QString& qsMsg);
+	void videoPlayerThreadSlotReceiveImage(const QImage& objImage);
 
 private:
 	void detectDevice();
@@ -186,6 +193,8 @@ private:
 	void openRtsp(const QString& qsUri);
 private:
 	Ui::OnvifDetectDeviceClass ui;
+	QVideoPlayerThread* m_pVideoPlayerThread;
+	QImage m_objImage;
 };
 
 #endif // ONVIFDETECTDEVICE_H

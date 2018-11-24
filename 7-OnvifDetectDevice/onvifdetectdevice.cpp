@@ -4,24 +4,69 @@
 #include "soapStub.h"
 #include <assert.h>
 #include "soapH.h"
-#include "QTextEdit"
 #include "wsseapi.h"
 #include "wsaapi.h"
+#include "VideoPlayerThread.h"
+#include <QPainter>
 
 OnvifDetectDevice::OnvifDetectDevice(QWidget *parent, Qt::WFlags flags)
 	: QWidget(parent, flags)
 {
 	ui.setupUi(this);
+	m_pVideoPlayerThread = NULL;
 }
 
 OnvifDetectDevice::~OnvifDetectDevice()
 {
+	if (NULL != m_pVideoPlayerThread)
+	{
+		m_pVideoPlayerThread->stopThread();
+		m_pVideoPlayerThread = NULL;
+	}
+}
 
+void OnvifDetectDevice::paintEvent(QPaintEvent* pPaintEvent)
+{
+	if (m_objImage.size().width() <= 0)
+	{
+		return;
+	}
+
+	QPainter painter(this);
+	painter.setBrush(Qt::black);
+	painter.drawRect(ui.frameRealPlay->x(), ui.frameRealPlay->y(), ui.frameRealPlay->width(), ui.frameRealPlay->height()); //先画成黑色
+
+	//将图像按比例缩放成和窗口一样大小
+	QImage objImage = m_objImage.scaledToWidth(ui.frameRealPlay->width(), Qt::SmoothTransformation);
+	objImage = m_objImage.scaledToHeight(ui.frameRealPlay->height(), Qt::SmoothTransformation);
+
+	painter.drawImage(QPoint(ui.frameRealPlay->x(), ui.frameRealPlay->y()), objImage); //画出图像
 }
 
 void OnvifDetectDevice::pushButtonSearchSlotClicked()
 {
 	detectDevice();
+}
+
+void OnvifDetectDevice::pushButtonStopSlotClicked()
+{
+	if (NULL == m_pVideoPlayerThread)
+	{
+		return;
+	}
+	m_pVideoPlayerThread->stopThread();
+	ui.pushButtonSearch->setEnabled(true);
+}
+
+void OnvifDetectDevice::videoPlayerThreadSlotReceiveMsg(const QString& qsMsg)
+{
+//	printMsg(qsMsg);
+}
+
+void OnvifDetectDevice::videoPlayerThreadSlotReceiveImage(const QImage& objImage)
+{
+	m_objImage = objImage;
+	update();
 }
 
 void OnvifDetectDevice::detectDevice()
@@ -82,6 +127,7 @@ void OnvifDetectDevice::detectDevice()
 
 					}
 				}
+				break;
 			}
 		}
 		else if (pSoap->error)
@@ -439,7 +485,15 @@ int OnvifDetectDevice::makeUriWithauth(const QString& qsUri, const char* szUsern
 
 void OnvifDetectDevice::openRtsp(const QString& qsUri)
 {
-
+	printMsg(QString("Uri:") + qsUri);
+	if (NULL == m_pVideoPlayerThread)
+	{
+		m_pVideoPlayerThread = new QVideoPlayerThread(this, qsUri);
+		connect(m_pVideoPlayerThread, SIGNAL(signalSendMsg(const QString&)), this, SLOT(videoPlayerThreadSlotReceiveMsg(const QString&)));
+		connect(m_pVideoPlayerThread, SIGNAL(signalSendImage(const QImage&)), this, SLOT(videoPlayerThreadSlotReceiveImage(const QImage&)));
+	}
+	m_pVideoPlayerThread->startThread();
+	ui.pushButtonSearch->setEnabled(false);
 }
 
 CProfile::CProfile()

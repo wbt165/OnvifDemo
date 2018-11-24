@@ -6,36 +6,86 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>797</width>
+    <height>538</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>OnvifDetectDevice</string>
   </property>
-  <widget class="QPushButton" name="pushButtonSearch">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>搜索设备</string>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textEditResult">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>80</y>
-     <width>521</width>
-     <height>291</height>
-    </rect>
-   </property>
-  </widget>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <widget class="QFrame" name="frameRealPlay">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>369</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>120</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QTextEdit" name="textEditResult">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="pushButtonSearch">
+          <property name="text">
+           <string>搜索设备</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonStop">
+          <property name="text">
+           <string>停止播放</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -49,8 +99,8 @@
    <slot>pushButtonSearchSlotClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>42</y>
+     <x>792</x>
+     <y>482</y>
     </hint>
     <hint type="destinationlabel">
      <x>194</x>
@@ -58,8 +108,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButtonStop</sender>
+   <signal>clicked()</signal>
+   <receiver>OnvifDetectDeviceClass</receiver>
+   <slot>pushButtonStopSlotClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>760</x>
+     <y>515</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>815</x>
+     <y>503</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>pushButtonSearchSlotClicked()</slot>
+  <slot>pushButtonStopSlotClicked()</slot>
  </slots>
 </ui>

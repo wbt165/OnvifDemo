@@ -19,6 +19,9 @@ public:
 	QVideoPlayerThread(QObject *parent, const QString& qsUri);
 	~QVideoPlayerThread();
 
+	void startThread();
+	void stopThread();
+
 protected:
 	// ≤•∑≈œﬂ≥Ã
 	virtual void run();
