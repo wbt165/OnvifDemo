@@ -8,28 +8,38 @@ DESTDIR = ./Debug
 QT += core gui
 CONFIG += debug
 DEFINES += QT_LARGEFILE_SUPPORT QT_DLL WITH_OPENSSL
+
+win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include/Win
 INCLUDEPATH += ./GeneratedFiles \
     . \
     ./GeneratedFiles/Debug \
     ./../6-OnvifDemo \
     ./../OpenSSL-Win32/include \
     ./../ffmpeg-20181118-529debc-win32/include
-LIBS += -L"./../OpenSSL-Win32/lib/VC" \
+
+win32:LIBS += -L"./../OpenSSL-Win32/lib/VC" \
     -L"./../ffmpeg-20181118-529debc-win32/lib" \
-    -Wl,-rpath=./:../bin:./Debug
     -llibssl32MDd \
     -llibcrypto32MDd \
     -lavcodec \
     -lavformat \
     -lavutil \
     -lswscale
+unix:LIBS  += -L"/usr/lib/x86_64-linux-gnu" \
+    -Wl,-rpath=./:../bin:./Debug \
+    -lssl \
+    -lcrypto \
+    -lavcodec-ffmpeg \
+    -lavformat-ffmpeg \
+    -lavutil-ffmpeg \
+    -lswscale-ffmpeg
+
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
 OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
-HEADERS += ../6-OnvifDemo/duration.h \
-    ./onvifdetectdevice.h \
+HEADERS += ./onvifdetectdevice.h \
     ./VideoPlayerThread.h \
     ../6-OnvifDemo/dom.h \
     ../6-OnvifDemo/mecevp.h \
