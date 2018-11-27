@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="7-OnvifDetectDevice"
-	ProjectGUID="{7611C070-E8CD-368E-9215-C87DA1B90E14}"
+	ProjectGUID="{58F36C64-816D-3743-84AD-239B2AAEC695}"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -w34100 -w34189"
 				Optimization="4"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include&quot;;&quot;GeneratedFiles&quot;;&quot;.&quot;;&quot;GeneratedFiles\Debug&quot;;&quot;..\6-OnvifDemo&quot;;&quot;..\OpenSSL-Win32\include&quot;;&quot;..\ffmpeg-20181118-529debc-win32\include&quot;;&quot;..\ffmpeg-20181118-529debc-win32\include\Win&quot;;&quot;$(QTDIR)\include\ActiveQt&quot;;&quot;GeneratedFiles\debug&quot;;&quot;GeneratedFiles&quot;;&quot;$(QTDIR)\mkspecs\default&quot;;&quot;.\GeneratedFiles&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles&quot;;&quot;.\GeneratedFiles\Debug&quot;;&quot;.\..\6-OnvifDemo&quot;;&quot;.\..\OpenSSL\include&quot;;&quot;.\..\ffmpeg-20181118-529debc-win32\include&quot;;&quot;.\..\ffmpeg-20181118-529debc-win32\include\Win&quot;;&quot;$(QTDIR)\include\ActiveQt&quot;;&quot;.\GeneratedFiles\debug&quot;;&quot;$(QTDIR)\mkspecs\default&quot;"
 				PreprocessorDefinitions="_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_LARGEFILE_SUPPORT,QT_DLL,WITH_OPENSSL,QT_DLL,QT_GUI_LIB,QT_CORE_LIB,QT_HAVE_MMX,QT_HAVE_3DNOW,QT_HAVE_SSE,QT_HAVE_MMXEXT,QT_HAVE_SSE2,QT_THREAD_SUPPORT"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="1"
@@ -74,10 +74,10 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
-				AdditionalDependencies="$(QTDIR)\lib\qtmaind.lib ./../OpenSSL-Win32/lib/VC\libssl32MDd.lib ./../OpenSSL-Win32/lib/VC\libcrypto32MDd.lib ./../ffmpeg-20181118-529debc-win32/lib\avcodec.lib ./../ffmpeg-20181118-529debc-win32/lib\avformat.lib ./../ffmpeg-20181118-529debc-win32/lib\avutil.lib ./../ffmpeg-20181118-529debc-win32/lib\swscale.lib $(QTDIR)\lib\QtGuid4.lib $(QTDIR)\lib\QtCored4.lib"
+				AdditionalDependencies="$(QTDIR)\lib\qtmaind.lib libssl32MDd.lib libcrypto32MDd.lib ./../ffmpeg-20181118-529debc-win32/lib\avcodec.lib ./../ffmpeg-20181118-529debc-win32/lib\avformat.lib ./../ffmpeg-20181118-529debc-win32/lib\avutil.lib ./../ffmpeg-20181118-529debc-win32/lib\swscale.lib $(QTDIR)\lib\QtGuid4.lib $(QTDIR)\lib\QtCored4.lib"
 				OutputFile="Debug\7-OnvifDetectDevice.exe"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(QTDIR)\lib,$(QTDIR)\lib,./../OpenSSL-Win32/lib/VC,./../ffmpeg-20181118-529debc-win32/lib"
+				AdditionalLibraryDirectories="$(QTDIR)\lib,$(QTDIR)\lib,./../OpenSSL/lib/VC,./../ffmpeg-20181118-529debc-win32/lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=""
 				SubSystem="2"
@@ -135,7 +135,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -w34100 -w34189"
 				Optimization="2"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include&quot;;&quot;GeneratedFiles&quot;;&quot;.&quot;;&quot;GeneratedFiles\Debug&quot;;&quot;..\6-OnvifDemo&quot;;&quot;..\OpenSSL-Win32\include&quot;;&quot;..\ffmpeg-20181118-529debc-win32\include&quot;;&quot;..\ffmpeg-20181118-529debc-win32\include\Win&quot;;&quot;$(QTDIR)\include\ActiveQt&quot;;&quot;GeneratedFiles\release&quot;;&quot;GeneratedFiles&quot;;&quot;$(QTDIR)\mkspecs\default&quot;;&quot;.\GeneratedFiles&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles&quot;;&quot;.\GeneratedFiles\Debug&quot;;&quot;.\..\6-OnvifDemo&quot;;&quot;.\..\OpenSSL\include&quot;;&quot;.\..\ffmpeg-20181118-529debc-win32\include&quot;;&quot;.\..\ffmpeg-20181118-529debc-win32\include\Win&quot;;&quot;$(QTDIR)\include\ActiveQt&quot;;&quot;.\GeneratedFiles\release&quot;;&quot;$(QTDIR)\mkspecs\default&quot;"
 				PreprocessorDefinitions="QT_NO_DEBUG,NDEBUG,_WINDOWS,UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_LARGEFILE_SUPPORT,QT_DLL,WITH_OPENSSL,QT_DLL,QT_NO_DEBUG,QT_GUI_LIB,QT_CORE_LIB,QT_HAVE_MMX,QT_HAVE_3DNOW,QT_HAVE_SSE,QT_HAVE_MMXEXT,QT_HAVE_SSE2,QT_THREAD_SUPPORT,NDEBUG"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="1"
@@ -164,11 +164,11 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
 				AdditionalOptions="&quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot;"
-				AdditionalDependencies="$(QTDIR)\lib\qtmain.lib ./../OpenSSL-Win32/lib/VC\libssl32MDd.lib ./../OpenSSL-Win32/lib/VC\libcrypto32MDd.lib ./../ffmpeg-20181118-529debc-win32/lib\avcodec.lib ./../ffmpeg-20181118-529debc-win32/lib\avformat.lib ./../ffmpeg-20181118-529debc-win32/lib\avutil.lib ./../ffmpeg-20181118-529debc-win32/lib\swscale.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtCore4.lib"
+				AdditionalDependencies="$(QTDIR)\lib\qtmain.lib libssl32MDd.lib libcrypto32MDd.lib ./../ffmpeg-20181118-529debc-win32/lib\avcodec.lib ./../ffmpeg-20181118-529debc-win32/lib\avformat.lib ./../ffmpeg-20181118-529debc-win32/lib\avutil.lib ./../ffmpeg-20181118-529debc-win32/lib\swscale.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtCore4.lib"
 				OutputFile="Debug\7-OnvifDetectDevice.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="$(QTDIR)\lib,$(QTDIR)\lib,./../OpenSSL-Win32/lib/VC,./../ffmpeg-20181118-529debc-win32/lib"
+				AdditionalLibraryDirectories="$(QTDIR)\lib,$(QTDIR)\lib,./../OpenSSL/lib/VC,./../ffmpeg-20181118-529debc-win32/lib"
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=""
 				SubSystem="2"
@@ -276,7 +276,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing onvifdetectdevice.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL-Win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\debug&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\debug&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -287,7 +287,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing onvifdetectdevice.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL-Win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\release&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\release&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -322,7 +322,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing VideoPlayerThread.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL-Win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\debug&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\debug&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -333,7 +333,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing VideoPlayerThread.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL-Win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\release&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DQT_NO_DEBUG -DNDEBUG -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DWITH_OPENSSL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.\GeneratedFiles\Debug&quot; &quot;-I.\..\6-OnvifDemo&quot; &quot;-I.\..\OpenSSL\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include&quot; &quot;-I.\..\ffmpeg-20181118-529debc-win32\include\Win&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\GeneratedFiles\release&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
