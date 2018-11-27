@@ -9,13 +9,13 @@ QT += core gui
 CONFIG += debug
 DEFINES += QT_LARGEFILE_SUPPORT QT_DLL WITH_OPENSSL
 
-win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include/Win
 INCLUDEPATH += ./GeneratedFiles \
     . \
     ./GeneratedFiles/Debug \
     ./../6-OnvifDemo \
     ./../OpenSSL-Win32/include \
     ./../ffmpeg-20181118-529debc-win32/include
+win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include/Win
 
 win32:LIBS += -L"./../OpenSSL-Win32/lib/VC" \
     -L"./../ffmpeg-20181118-529debc-win32/lib" \

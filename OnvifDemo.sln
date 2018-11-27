@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "4-MobileCode", "4-MobileCode\MobileCode.vcproj", "{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7-OnvifDetectDevice", "7-OnvifDetectDevice\7-OnvifDetectDevice.vcproj", "{1A66893B-5434-461F-BA43-D28E26B756FD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7-OnvifDetectDevice", "7-OnvifDetectDevice\7-OnvifDetectDevice.vcproj", "{7611C070-E8CD-368E-9215-C87DA1B90E14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}.Debug|Win32.Build.0 = Debug|Win32
 		{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}.Release|Win32.ActiveCfg = Release|Win32
 		{8DC4912A-6B21-4541-80FB-6A8593A3C5B1}.Release|Win32.Build.0 = Release|Win32
-		{1A66893B-5434-461F-BA43-D28E26B756FD}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1A66893B-5434-461F-BA43-D28E26B756FD}.Debug|Win32.Build.0 = Debug|Win32
-		{1A66893B-5434-461F-BA43-D28E26B756FD}.Release|Win32.ActiveCfg = Release|Win32
-		{1A66893B-5434-461F-BA43-D28E26B756FD}.Release|Win32.Build.0 = Release|Win32
+		{7611C070-E8CD-368E-9215-C87DA1B90E14}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7611C070-E8CD-368E-9215-C87DA1B90E14}.Debug|Win32.Build.0 = Debug|Win32
+		{7611C070-E8CD-368E-9215-C87DA1B90E14}.Release|Win32.ActiveCfg = Release|Win32
+		{7611C070-E8CD-368E-9215-C87DA1B90E14}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
