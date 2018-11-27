@@ -206,15 +206,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\6-OnvifDemo\dom.cpp"
-				>
-			</File>
-			<File
 				RelativePath="main.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\mecevp.c"
 				>
 			</File>
 			<File
@@ -222,35 +214,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\6-OnvifDemo\smdevp.c"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\soapC.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\soapClient.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\stdsoap2.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\threads.c"
-				>
-			</File>
-			<File
 				RelativePath="VideoPlayerThread.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\wsaapi.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\wsseapi.cpp"
 				>
 			</File>
 		</Filter>
@@ -259,14 +223,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\6-OnvifDemo\dom.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\mecevp.h"
-				>
-			</File>
 			<File
 				RelativePath="onvifdetectdevice.h"
 				>
@@ -294,26 +250,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\6-OnvifDemo\smdevp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\soapH.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\soapStub.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\stdsoap2.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\threads.h"
-				>
-			</File>
-			<File
 				RelativePath="VideoPlayerThread.h"
 				>
 				<FileConfiguration
@@ -338,14 +274,6 @@
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\wsaapi.h"
-				>
-			</File>
-			<File
-				RelativePath="..\6-OnvifDemo\wsseapi.h"
-				>
 			</File>
 		</Filter>
 		<Filter
@@ -486,6 +414,82 @@
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="Onvif"
+			>
+			<File
+				RelativePath="..\6-OnvifDemo\dom.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\dom.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\mecevp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\mecevp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\smdevp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\smdevp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\soapC.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\soapClient.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\soapH.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\soapStub.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\stdsoap2.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\stdsoap2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\threads.c"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\threads.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsaapi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsaapi.h"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsseapi.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\6-OnvifDemo\wsseapi.h"
+				>
 			</File>
 		</Filter>
 	</Files>

@@ -26,13 +26,15 @@ win32:LIBS += -L"./../OpenSSL/lib/VC" \
     -lavutil \
     -lswscale
 unix:LIBS  += -L"./../OpenSSL/lib/Linux64" \
+    -L"./../ffmpeg-Linux64/lib" \
     -Wl,-rpath=./:../bin:./Debug \
     -lssl \
     -lcrypto \
-    -lavcodec-ffmpeg \
-    -lavformat-ffmpeg \
-    -lavutil-ffmpeg \
-    -lswscale-ffmpeg
+    -lavcodec \
+    -lavformat \
+    -lavutil \
+    -lswscale \
+    -lswresample
 
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
