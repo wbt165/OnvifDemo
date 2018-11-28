@@ -7,7 +7,10 @@ TARGET = 7-OnvifDetectDevice
 DESTDIR = ./Debug
 QT += core gui
 CONFIG += debug
+
 DEFINES += QT_LARGEFILE_SUPPORT QT_DLL WITH_OPENSSL
+# arm
+# DEFINES += __STDC_CONSTANT_MACROS
 
 INCLUDEPATH += ./GeneratedFiles \
     . \
@@ -16,14 +19,20 @@ INCLUDEPATH += ./GeneratedFiles \
     ./../OpenSSL/include
 win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include
 unix:INCLUDEPATH += ./../ffmpeg-Linux64/include
+#arm
+# unix:INCLUDEPATH += ./../ffmpeg-4.1-Arm/include
 
 win32:LIBS += -L"./../OpenSSL/lib/VC" \
     -L"./../ffmpeg-20181118-529debc-win32/lib" \
     -llibssl32MDd \
     -llibcrypto32MDd
+
+# arm   
+# unix:LIBS  += -L"./../OpenSSL-Arm/lib" \
+#     -L"./../ffmpeg-4.1-Arm/lib" \
 unix:LIBS  += -L"./../OpenSSL/lib/Linux64" \
     -L"./../ffmpeg-Linux64/lib" \
-    -Wl,-rpath=./:../bin:./Debug \
+    -Wl,-rpath=./:../bin:./Debug:/opt/Trolltech/lib \
     -lssl \
     -lcrypto \
     -lswresample
