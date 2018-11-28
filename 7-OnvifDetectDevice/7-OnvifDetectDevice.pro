@@ -13,28 +13,24 @@ INCLUDEPATH += ./GeneratedFiles \
     . \
     ./GeneratedFiles/Debug \
     ./../6-OnvifDemo \
-    ./../OpenSSL/include \
-    ./../ffmpeg-20181118-529debc-win32/include
-win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include/Win
+    ./../OpenSSL/include
+win32:INCLUDEPATH += ./../ffmpeg-20181118-529debc-win32/include
+unix:INCLUDEPATH += ./../ffmpeg-Linux64/include
 
 win32:LIBS += -L"./../OpenSSL/lib/VC" \
     -L"./../ffmpeg-20181118-529debc-win32/lib" \
     -llibssl32MDd \
-    -llibcrypto32MDd \
-    -lavcodec \
-    -lavformat \
-    -lavutil \
-    -lswscale
+    -llibcrypto32MDd
 unix:LIBS  += -L"./../OpenSSL/lib/Linux64" \
     -L"./../ffmpeg-Linux64/lib" \
     -Wl,-rpath=./:../bin:./Debug \
     -lssl \
     -lcrypto \
-    -lavcodec \
+    -lswresample
+LIBS += -lavcodec \
     -lavformat \
     -lavutil \
-    -lswscale \
-    -lswresample
+    -lswscale
 
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
